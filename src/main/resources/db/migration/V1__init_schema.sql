@@ -56,9 +56,9 @@ CREATE TABLE carts (
 CREATE TABLE cart_items (
     id BIGSERIAL PRIMARY KEY,
     cart_id BIGINT NOT NULL REFERENCES carts(id) ON DELETE CASCADE,
-    variant_id BIGINT NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
+    product_variant_id BIGINT NOT NULL REFERENCES product_variants(id) ON DELETE CASCADE,
     quantity INT NOT NULL CHECK (quantity > 0),
-    UNIQUE(cart_id, variant_id)
+    UNIQUE(cart_id, product_variant_id)
 );
 
 -- 7. Bảng orders
@@ -103,7 +103,7 @@ CREATE INDEX idx_products_category_id ON products(category_id);
 CREATE INDEX idx_products_status ON products(status);
 CREATE INDEX idx_variants_product_id ON product_variants(product_id);
 CREATE INDEX idx_cart_items_cart_id ON cart_items(cart_id);
-CREATE INDEX idx_cart_items_variant_id ON cart_items(variant_id);
+CREATE INDEX idx_cart_items_product_variant_id ON cart_items(product_variant_id);
 CREATE INDEX idx_orders_user_id ON orders(user_id);
 CREATE INDEX idx_orders_status ON orders(status);
 CREATE INDEX idx_order_items_order_id ON order_items(order_id);
